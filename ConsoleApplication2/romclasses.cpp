@@ -1,7 +1,4 @@
-// ConsoleApplication2.cpp : Defines the entry point for the console application.
-//
-
-#include "stdafx.h"
+#include"stdafx.h"
 #include<j9port.h>
 #include<malloc.h>
 #include<stdio.h>
@@ -9,8 +6,6 @@
 struct J9ROMClass;
 struct J9ROMMethod;
 extern "C" {
-	I_32 VMCALL dumpBytecodes(J9PortLibrary * portLib, J9ROMClass* romClass, J9ROMMethod* romMethod, U_32 flags);
-	J9ROMMethod* VMCALL __cdecl nextROMMethod(J9ROMMethod * romMethod);
 	IDATA j9bcutil_dumpRomClass(J9ROMClass *romClass, J9PortLibrary *portLib, void *translationBuffers, U_32 flags);
 	void j9bcv_verifyDumpROMMethodPreverifyInfo() {}; 
 	void j9bcv_verifyDumpPreverifyClassTable() {};
@@ -18,16 +13,8 @@ extern "C" {
 }
 
 typedef I_32 J9SRP;
-typedef IDATA J9WSRP;
 
 #define NNSRP_GET(field, type) ((type) (((U_8 *) &(field)) + (J9SRP)(field)))
-#define SRP_GET(field, type) ((type) ((field) ? NNSRP_GET(field, type) : NULL))
-#define SRP_PTR_GET(ptr, type) SRP_GET(*((J9SRP *) (ptr)), type)
-#define NNSRP_PTR_GET(ptr, type) NNSRP_GET(*((J9SRP *) (ptr)), type)
-#define NNWSRP_GET(field, type) ((type) (((U_8 *) &(field)) + (J9WSRP)(field)))
-#define WSRP_GET(field, type) ((type) ((field) ? NNWSRP_GET(field, type) : NULL))
-#define WSRP_PTR_GET(ptr, type) WSRP_GET(*((J9WSRP *) (ptr)), type)
-#define NNWSRP_PTR_GET(ptr, type) NNWSRP_GET(*((J9WSRP *) (ptr)), type)
 
 typedef struct J9ROMImageHeader {
 	U_32 idTag;
